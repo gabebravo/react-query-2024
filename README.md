@@ -22,9 +22,19 @@ export default {
     project: ['./tsconfig.json', './tsconfig.node.json'],
     tsconfigRootDir: __dirname,
   },
-}
+};
 ```
 
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Github create a new repository on the command line
+
+- echo "# react-query-2024" >> README.md
+- git init
+- git add README.md
+- git commit -m "first commit"
+- git branch -M master
+- git remote add origin https://github.com/gabebravo/react-query-2024.git
+- git push -u origin master
