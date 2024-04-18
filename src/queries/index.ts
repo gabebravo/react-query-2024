@@ -1,2 +1,2 @@
-export { fetchStarWarsPeople } from './starWarsPeople';
-export { fetchStarWarsPerson } from './starWarsPeople';
+export { fetchStarwarsPeople } from './starwarsPeople';
+export { fetchStarwarsPlanet } from './starwarsPeople';

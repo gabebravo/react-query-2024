@@ -1,47 +1,28 @@
-import React from 'react';
-import { useQuery, QueryErrorResetBoundary } from '@tanstack/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
+import { FC } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import { fetchStarWarsPeople } from './queries';
-import { StarWarsPeopleList } from './components/StarWarsPeopleList';
-import { toast } from 'react-toastify';
+import { StarwarsPeopleController } from './routes/root/StarwarsPeopleController';
+import { StarwarsPlanet } from './routes/homeplanet/StarwarsPlanet';
 
-function App() {
-  // Prefetch
-  useQuery({
-    queryKey: ['starWarsPeople'],
-    queryFn: fetchStarWarsPeople,
-    // Optional optimization to avoid rerenders when this query changes:
-    notifyOnChangeProps: [],
-  });
-
+function NoMatch() {
   return (
-    <QueryErrorResetBoundary>
-      {({ reset }) => (
-        <ErrorBoundary
-          fallbackRender={({ error, resetErrorBoundary }) =>
-            toast.error(error.message, {
-              toastId: 'error-boundary',
-              position: 'bottom-left',
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: 'light',
-              onClose: () => resetErrorBoundary(),
-            })
-          }
-          onReset={reset}
-        >
-          <React.Suspense fallback={<h3>Loading Star Wars fun...</h3>}>
-            <StarWarsPeopleList />
-          </React.Suspense>
-        </ErrorBoundary>
-      )}
-    </QueryErrorResetBoundary>
+    <div>
+      <h2>Nothing to see here!</h2>
+      <p>
+        <Link to="/">Go back to the home page</Link>
+      </p>
+    </div>
   );
 }
 
-export default App;
+export const App: FC = () => (
+  <Routes>
+    <Route path="/" element={<StarwarsPeopleController />}>
+      {/* Using path="*"" means "match anything", so this route
+        acts like a catch-all for URLs that we don't have explicit
+      routes for. */}
+      <Route path="*" element={<NoMatch />} />
+    </Route>
+    <Route path="homeplanet" element={<StarwarsPlanet />} />
+  </Routes>
+);
