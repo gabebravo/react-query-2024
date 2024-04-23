@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
 import { StarwarsPeopleController } from './routes/root/StarwarsPeopleController';
-import { StarwarsPlanet } from './routes/homeplanet/StarwarsPlanet';
+import { StarwarsPlanetController } from './routes/homeplanet/StarwarsPlanetController';
 
 function NoMatch() {
   return (
@@ -23,6 +23,6 @@ export const App: FC = () => (
       routes for. */}
       <Route path="*" element={<NoMatch />} />
     </Route>
-    <Route path="homeplanet" element={<StarwarsPlanet />} />
+    <Route path="homeplanet" element={<StarwarsPlanetController />} />
   </Routes>
 );

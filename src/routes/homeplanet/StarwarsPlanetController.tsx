@@ -2,15 +2,19 @@ import { useQuery, QueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
 import { toast } from 'react-toastify';
 import React, { FC } from 'react';
-import { fetchStarwarsPeople } from '../../queries';
-import { StarwarsPeopleList } from './StarwarsPeople';
+import { fetchStarwarsPlanet } from '../../queries';
+import { usePlanetUrlState } from '../homeplanet/state';
+import { StarwarsPlanet } from '../homeplanet/StarwarsPlanet';
 
-export const StarwarsPeopleController: FC = () => {
+export const StarwarsPlanetController: FC = () => {
+  const planetUrl = usePlanetUrlState((state) => state.url);
+
   // Prefetch
   useQuery({
-    queryKey: ['starwarsPeople'],
-    queryFn: fetchStarwarsPeople,
+    queryKey: ['starwarsPlanet', planetUrl],
+    queryFn: () => fetchStarwarsPlanet(planetUrl),
     refetchOnWindowFocus: false,
+    enabled: Boolean(planetUrl),
   });
 
   return (
@@ -33,8 +37,8 @@ export const StarwarsPeopleController: FC = () => {
           }
           onReset={reset}
         >
-          <React.Suspense fallback={<h3>Loading Star Wars People...</h3>}>
-            <StarwarsPeopleList />
+          <React.Suspense fallback={<h3>Loading Star Wars Planet...</h3>}>
+            <StarwarsPlanet planetUrl={planetUrl} />
           </React.Suspense>
         </ErrorBoundary>
       )}
